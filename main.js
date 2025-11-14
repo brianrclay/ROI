@@ -459,10 +459,11 @@ $(document).ready(function() {
                                     }
                                 },
                                 grid: {
-                                    color: '#9ea8b2',
+                                    color: '#9EA8B2',
                                     lineWidth: 1,
                                     borderDash: [2, 2],
-                                    drawBorder: false
+                                    drawBorder: true,
+                                    borderColor: '#9EA8B2'
                                 }
                             }
                         },
