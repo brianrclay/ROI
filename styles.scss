@@ -1,0 +1,926 @@
+// Color variables
+$color-surface-primary: #ffffff;
+$color-border-primary: #dce0e4;
+$color-border-inactive: #677483;
+$color-text-primary: #3a424a;
+$color-text-secondary: #677483;
+
+// Spacing variables
+$spacing-3: 8px;
+$spacing-5: 16px;
+$spacing-6: 24px;
+
+// Border radius
+$border-radius-md: 4px;
+$border-radius-lg: 16px;
+$border-radius-card: 8px;
+
+// Typography
+$font-family-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-size-md: 14px;
+$font-size-sm: 12px;
+$font-size-h4: 16px;
+$line-height-md: 20px;
+$line-height-sm: 20px;
+$line-height-h4: 24px;
+$font-weight-regular: 400;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+// Inputs wrapper container
+.inputs-wrapper {
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-primary;
+  border-radius: $border-radius-lg;
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  width: 300px;
+  box-sizing: border-box;
+  height: auto;
+  align-self: flex-start;
+}
+
+// Combo input (input + dropdown)
+.combo-input {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  width: 100%;
+  height: 64px;
+}
+
+// Text input group (single input with helper text)
+.text-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  width: 100%;
+}
+
+// Input label
+.input-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.07px;
+  display: flex;
+  gap: 2px;
+  height: 20px;
+}
+
+// Input wrapper (contains text input and dropdown)
+.input-wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 0;
+}
+
+// Text input field
+.text-input {
+  flex: 1;
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-inactive;
+  border-right: none;
+  border-radius: $border-radius-md 0 0 $border-radius-md;
+  padding: $spacing-3 $spacing-5;
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.07px;
+  box-sizing: border-box;
+  outline: none;
+  min-width: 0;
+
+  &:focus {
+    border-color: $color-border-inactive;
+  }
+
+  // When standalone (not in combo)
+  .text-input-group & {
+    border-right: 1px solid $color-border-inactive;
+    border-radius: $border-radius-md;
+  }
+}
+
+// Dropdown wrapper
+.dropdown-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+// Dropdown select button
+.dropdown-select {
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-inactive;
+  border-left: none;
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+  padding: $spacing-3 $spacing-5 $spacing-3 $spacing-5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+// Dropdown value text
+.dropdown-value {
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.07px;
+  white-space: nowrap;
+}
+
+// Caret down icon
+.caret-down {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+// Dropdown menu
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-primary;
+  border-radius: $border-radius-md;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 4px 0;
+  margin: 4px 0 0 0;
+  z-index: 1000;
+  display: none;
+  min-width: 100px;
+
+  &.active {
+    display: block;
+  }
+
+  li {
+    padding: $spacing-3 $spacing-5;
+    font-family: $font-family-inter;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-md;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Input content wrapper (for text inputs with helper text)
+.input-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  width: 100%;
+}
+
+// Cost input wrapper (input + unit text)
+.cost-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+
+  .text-input {
+    flex: 1;
+    border-right: none;
+    border-radius: $border-radius-md;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+// Cost unit text
+.cost-unit {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-sm;
+  color: $color-text-primary;
+  letter-spacing: 0.09px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: 1px solid $color-border-inactive;
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px 0 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+// Helper text
+.helper-text {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-sm;
+  color: $color-text-secondary;
+  letter-spacing: 0.09px;
+  margin: 0;
+  width: 100%;
+}
+
+// Metrics card wrapper
+.metrics-card-wrapper {
+  display: flex;
+  gap: $spacing-6;
+  align-items: center;
+  width: 100%;
+}
+
+// Metric card
+.metric-card {
+  flex: 1;
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-primary;
+  border-radius: $border-radius-card;
+  padding: 12px $spacing-6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+// Metric label
+.metric-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.09px;
+  width: 100%;
+}
+
+// Metric value wrapper (for value + pill)
+.metric-value-wrapper {
+  display: flex;
+  gap: $spacing-5;
+  align-items: center;
+  width: 100%;
+}
+
+// Metric value
+.metric-value {
+  font-family: $font-family-inter;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-h4;
+  color: $color-text-primary;
+  letter-spacing: 0.024px;
+  flex: 1;
+  min-width: 0;
+}
+
+// Metric pill (badge)
+.metric-pill {
+  background-color: #f5ffc2;
+  border-radius: $border-radius-md;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+// Pill icon
+.pill-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block;
+}
+
+// Pill text
+.pill-text {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-sm;
+  color: #427100;
+  letter-spacing: 0.09px;
+  white-space: nowrap;
+}
+
+// Origin shielding wrapper
+.origin-shielding-wrapper {
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-primary;
+  border-radius: $border-radius-card;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.origin-shielding-content {
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  padding: 32px 40px;
+  box-sizing: border-box;
+}
+
+// Info container
+.info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  max-width: 672px;
+  margin: 0 auto;
+}
+
+// Bandwidth container
+.bandwidth-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.globe-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bandwidth-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+  color: $color-text-primary;
+}
+
+// Bill container
+.bill-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.aws-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bill-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+}
+
+// Info label and value
+.info-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.07px;
+  margin: 0;
+}
+
+.info-value {
+  font-family: $font-family-inter;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-h4;
+  color: $color-text-primary;
+  letter-spacing: 0.024px;
+  margin: 0;
+}
+
+.bill-amount {
+  color: #bd140a; // Error/red color for when toggle is off
+}
+
+// Arrow container
+.arrow-container {
+  position: absolute;
+  height: 0;
+  width: 446px;
+  left: 113px;
+  top: 22px;
+  z-index: 1;
+}
+
+.flow-arrow {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.arrow-2 {
+  display: none; // Hidden by default, shown when toggle is on
+}
+
+// Fastly savings container
+.fastly-savings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 22px;
+  width: 120px;
+  opacity: 0; // Hidden by default, shown when toggle is on
+  pointer-events: none;
+  transition: opacity 0.3s ease, top 0.3s ease;
+  z-index: 2;
+}
+
+.origin-shielding-wrapper.toggle-on .fastly-savings-container {
+  opacity: 1;
+  pointer-events: auto;
+  top: -19px;
+}
+
+.origin-shielding-wrapper.toggle-off .fastly-savings-container {
+  top: 66.62px;
+}
+
+.origin-shielding-wrapper.toggle-on .arrow-2 {
+  display: block;
+}
+
+.fastly-logo-container {
+  background: white;
+  border-radius: 100px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 80px;
+  height: 80px;
+}
+
+.origin-shielding-wrapper.toggle-off .fastly-logo-container {
+  opacity: 0.5;
+  padding: 6.4px;
+  width: 51.2px;
+  height: 51.2px;
+}
+
+.fastly-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg{
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.origin-shielding-wrapper.toggle-off .fastly-logo {
+  width: 38.4px;
+  height: 38.4px;
+}
+
+.savings-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.origin-shielding-wrapper.toggle-off .savings-info {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.savings-amount-container {
+  background-color: #f5ffc2;
+  border-radius: 8px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.savings-amount {
+  font-family: $font-family-inter;
+  font-size: 24px;
+  font-weight: $font-weight-bold;
+  line-height: 32px;
+  color: #427100;
+  letter-spacing: 0.036px;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+}
+
+// Toggle container
+.toggle-container {
+  display: flex;
+  gap: $spacing-5;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 188px;
+}
+
+// Origin toggle
+.origin-toggle {
+  width: 53px;
+  height: 24px;
+  border-radius: 24px;
+  border: none;
+  background-color: #677483; // Gray when off
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+
+  .toggle-handle {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    transition: left 0.3s ease;
+    display: block;
+  }
+}
+
+.origin-shielding-wrapper.toggle-on .origin-toggle {
+  background-color: #79cc05; // Green when on
+}
+
+.origin-shielding-wrapper.toggle-on .origin-toggle .toggle-handle {
+  left: 34px;
+}
+
+.toggle-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-h4;
+  color: #000000;
+  letter-spacing: 0.024px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+// When toggle is on, update bill amount color
+.origin-shielding-wrapper.toggle-on .bill-amount {
+  color: $color-text-primary;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 32px 0;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1 {
+    font-family: 'ES Rebond Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 40px;
+    font-weight: 800; // Extrabold
+    line-height: 1;
+    color: #000000;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  > div {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  button {
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background: transparent;
+    padding: 8px;
+    font-family: $font-family-inter;
+    font-size: 14px;
+    font-weight: $font-weight-semi-bold;
+    line-height: 20px;
+    color: #121417;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.07px;
+    transition: background-color 0.2s, color 0.2s;
+    position: relative;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+  
+  .share-button {
+    .tooltip {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      display: none;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      
+      &.show {
+        display: block;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      
+      .tooltip-body {
+        background-color: #121417;
+        border-radius: 4px;
+        padding: 8px 16px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        box-shadow: 0px 4px 8px 0px rgba(11, 13, 14, 0.25);
+        
+        .tooltip-icon {
+          flex-shrink: 0;
+          width: 20px;
+          height: 20px;
+        }
+        
+        span {
+          font-family: $font-family-inter;
+          font-size: 12px;
+          font-weight: $font-weight-regular;
+          line-height: 20px;
+          color: #ffffff;
+          letter-spacing: 0.09px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  a {
+    background-color: #121417;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: $font-family-inter;
+    font-size: 14px;
+    font-weight: $font-weight-semi-bold;
+    line-height: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0.07px;
+    display: inline-block;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #004099;
+    }
+  }
+}
+
+
+.main-content-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    margin: 32px auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+    width: calc(100% - 64px);
+    max-width: 1200px;
+
+    .results-wrapper{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+}
+
+// Origin chart wrapper
+.origin-chart-wrapper {
+  background-color: $color-surface-primary;
+  border: 1px solid $color-border-primary;
+  border-radius: $border-radius-card;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  box-sizing: border-box;
+}
+
+// Chart header
+.chart-header {
+  padding: $spacing-6 $spacing-6 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chart-title {
+  font-family: $font-family-inter;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-h4;
+  color: $color-text-primary;
+  letter-spacing: 0.024px;
+  margin: 0;
+}
+
+.chart-subtitle {
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-sm;
+  color: $color-text-primary;
+  letter-spacing: 0.09px;
+  margin: 0;
+}
+
+// Chart container
+.chart-container {
+  padding: 0 $spacing-6;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chart-area {
+  height: 230px;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  canvas {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+// Chart legend
+.chart-legend {
+  display: flex;
+  gap: $spacing-6;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-md;
+  color: $color-text-primary;
+  letter-spacing: 0.07px;
+  white-space: nowrap;
+}
+
+// Origin chart stats wrapper
+.origin-chart-stats-wrapper {
+  border-top: 1px solid $color-border-primary;
+  display: flex;
+  width: 100%;
+}
+
+.stat-item {
+  flex: 1;
+  background-color: rgba(244, 238, 236, 0.5);
+  padding: $spacing-5;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+
+  &:not(:first-child) {
+    border-left: 1px solid $color-border-primary;
+  }
+}
+
+.stat-value {
+  display: flex;
+  gap: $spacing-3;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.stat-number {
+  font-family: $font-family-inter;
+  font-size: 20px;
+  font-weight: $font-weight-bold;
+  line-height: 28px;
+  color: #427100;
+  letter-spacing: 0.03px;
+  white-space: nowrap;
+}
+
+.stat-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.stat-label {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-sm;
+  color: $color-text-primary;
+  letter-spacing: 0.09px;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+}
