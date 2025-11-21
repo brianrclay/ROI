@@ -184,7 +184,7 @@ $(document).ready(function() {
         $('.fastly-origin-cost').text('$' + fastlyOriginCost.toLocaleString());
         $('.savings-percent').text(Math.trunc(((currentOriginCost - fastlyOriginCost)/currentOriginCost)*100) + '%');
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         if (fastlyToggle) {
             $('.bill-amount').text('$' + fastlyOriginCost.toLocaleString() + '/mo');
@@ -298,7 +298,7 @@ $(document).ready(function() {
         $('.fastly-origin-cost').text('$' + fastlyOriginCost.toLocaleString());
         $('.savings-percent').text(Math.trunc(((currentOriginCost - fastlyOriginCost)/currentOriginCost)*100) + '%');
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         // Update bill amount based on toggle state
         if (fastlyToggle) {
@@ -309,8 +309,11 @@ $(document).ready(function() {
             $('#origin-bill-amount').text('$' + currentOriginCost.toLocaleString() + '/mo');
         }
         
-        // Update chart subtitle
+        // Update monthly bandwidth display
         var formattedBandwidth = formatBandwidth(monthlyBandwidth);
+        $('#monthly-bandwidth-display').text(formattedBandwidth + ' ' + monthlyBandwidthUnit);
+        
+        // Update chart subtitle
         $('.chart-subtitle').text(formattedBandwidth + ' ' + monthlyBandwidthUnit + ' bandwidth');
         
         // Update chart
@@ -538,7 +541,7 @@ $(document).ready(function() {
         
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
         
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         if (fastlyToggle) {
             $('.bill-amount').text('$' + fastlyOriginCost.toLocaleString() + '/mo');
@@ -599,7 +602,7 @@ $(document).ready(function() {
         $('.savings-percent').text(Math.trunc(((currentOriginCost - fastlyOriginCost)/currentOriginCost)*100) + '%');
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
         
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         if (fastlyToggle) {
             $('.bill-amount').text('$' + fastlyOriginCost.toLocaleString() + '/mo');
@@ -655,7 +658,7 @@ $(document).ready(function() {
         $('.savings-percent').text(Math.trunc(((currentOriginCost - fastlyOriginCost)/currentOriginCost)*100) + '%');
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
         
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         if (fastlyToggle) {
             $('.bill-amount').text('$' + fastlyOriginCost.toLocaleString() + '/mo');
@@ -704,7 +707,7 @@ $(document).ready(function() {
         $('.savings-percent').text(Math.trunc(((currentOriginCost - fastlyOriginCost)/currentOriginCost)*100) + '%');
         $('.annual-savings').text('$' + annualSavings.toLocaleString());
         
-        $('.savings-amount').text('$' + monthlySavings.toLocaleString() + '/mo');
+        $('.savings-amount').text('$' + annualSavings.toLocaleString() + '/yr');
         
         if (fastlyToggle) {
             $('.bill-amount').text('$' + fastlyOriginCost.toLocaleString() + '/mo');
