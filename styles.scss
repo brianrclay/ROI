@@ -1,9 +1,15 @@
 // Color variables
-$color-surface-primary: #ffffff;
-$color-border-primary: #dce0e4;
+$color-surface-primary: transparent;
+$color-border-primary: #1b1b1b;
 $color-border-inactive: #677483;
-$color-text-primary: #3a424a;
-$color-text-secondary: #677483;
+$color-text-primary: #ffffff;
+$color-text-secondary: #dbdbdb;
+
+// Dark theme colors
+$color-bg-card: rgba(0, 0, 0, 0.3);
+$color-accent-blue: #0067d1;
+$color-savings-green: #79cc05;
+$color-savings-green-bg: #222900;
 
 // Spacing variables
 $spacing-3: 8px;
@@ -27,16 +33,275 @@ $font-weight-regular: 400;
 $font-weight-semi-bold: 600;
 $font-weight-bold: 700;
 
-body{
-  background-color: #F4EEEC;
+html {
+  overflow-x: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body{
+  background-color: #060508;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+  right: 0;
+}
+
+// Animated background blobs
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, border-radius;
+}
+
+// Red blob A
+// Orbit center: (25vw, 50vh) — true vertical center, left side
+// Blob 80vw×70vh → left = 25vw-40vw = -15vw, top = 50vh-35vh = 15vh
+.bg-blob--red-a {
+  width: 80vw;
+  height: 70vh;
+  top: 15vh;
+  left: -15vw;
+  background: radial-gradient(ellipse at center, #cc0012 0%, #8a0015 55%, transparent 100%);
+  filter: blur(60px);
+  opacity: 0.45;
+  animation:
+    orbit-red-a 28s linear infinite,
+    morph-a     18s ease-in-out infinite alternate;
+}
+
+// Red blob B
+// Orbit center: (68vw, 45vh) — right-center
+// Blob 70vw×65vh → left = 68vw-35vw = 33vw, top = 45vh-32.5vh = 12vh
+.bg-blob--red-b {
+  width: 70vw;
+  height: 65vh;
+  top: 12vh;
+  left: 33vw;
+  background: radial-gradient(ellipse at center, #b8000e 0%, #7a0012 55%, transparent 100%);
+  filter: blur(65px);
+  opacity: 0.38;
+  animation:
+    orbit-red-b 34s linear infinite,
+    morph-b     22s ease-in-out infinite alternate;
+  animation-delay: -12s, 0s;
+}
+
+// Crimson — right edge mass
+.bg-blob--crimson {
+  width: 60vw;
+  height: 70vh;
+  top: 15vh;
+  right: -15vw;
+  background: radial-gradient(ellipse at center, #8c001e 0%, #5a000f 55%, transparent 100%);
+  filter: blur(70px);
+  opacity: 0.28;
+  animation:
+    orbit-crimson 42s linear infinite,
+    morph-c       26s ease-in-out infinite alternate;
+  animation-delay: -8s, 0s;
+}
+
+// Dark navy — top left, static anchor
+.bg-blob--navy {
+  width: 70vw;
+  height: 65vh;
+  top: -15vh;
+  left: -20vw;
+  background: radial-gradient(ellipse at center, #061828 0%, transparent 70%);
+  filter: blur(70px);
+  opacity: 0.65;
+}
+
+// Blue-purple
+// Orbit center: (72vw, 62vh) — lower right, but orbits well into the page
+// Blob 80vw×75vh → left = 72vw-40vw = 32vw, top = 62vh-37.5vh = 24.5vh
+.bg-blob--purple {
+  width: 80vw;
+  height: 75vh;
+  top: 25vh;
+  left: 32vw;
+  background: radial-gradient(ellipse at center, #2a1a80 0%, #1a1060 50%, transparent 100%);
+  filter: blur(65px);
+  opacity: 0.6;
+  animation:
+    orbit-purple 36s linear infinite,
+    morph-d      21s ease-in-out infinite alternate;
+  animation-delay: -16s, 0s;
+}
+
+// ── Orbit paths — proper ellipses: 0%=top, 25%=right, 50%=bottom, 75%=left ─
+
+// Red A: clockwise, radii 22vw × 35vh — big vertical sweep
+@keyframes orbit-red-a {
+  0%   { transform: translate(0,      -35vh); }
+  25%  { transform: translate(22vw,   0);     }
+  50%  { transform: translate(0,      35vh);  }
+  75%  { transform: translate(-22vw,  0);     }
+  100% { transform: translate(0,      -35vh); }
+}
+
+// Red B: counter-clockwise, radii 18vw × 30vh
+@keyframes orbit-red-b {
+  0%   { transform: translate(0,      -30vh); }
+  25%  { transform: translate(-18vw,  0);     }
+  50%  { transform: translate(0,      30vh);  }
+  75%  { transform: translate(18vw,   0);     }
+  100% { transform: translate(0,      -30vh); }
+}
+
+// Crimson: clockwise, radii 14vw × 25vh
+@keyframes orbit-crimson {
+  0%   { transform: translate(0,      -25vh); }
+  25%  { transform: translate(14vw,   0);     }
+  50%  { transform: translate(0,      25vh);  }
+  75%  { transform: translate(-14vw,  0);     }
+  100% { transform: translate(0,      -25vh); }
+}
+
+// Purple: counter-clockwise, radii 24vw × 32vh — sweeps far left and up
+@keyframes orbit-purple {
+  0%   { transform: translate(0,      -32vh); }
+  25%  { transform: translate(-24vw,  0);     }
+  50%  { transform: translate(0,      32vh);  }
+  75%  { transform: translate(24vw,   0);     }
+  100% { transform: translate(0,      -32vh); }
+}
+
+// ── Shape morphing — organic gloop feel ──────────────────────────────────
+
+@keyframes morph-a {
+  0%   { border-radius: 58% 42% 52% 48% / 48% 54% 46% 52%; }
+  33%  { border-radius: 42% 58% 38% 62% / 60% 40% 62% 38%; }
+  66%  { border-radius: 65% 35% 58% 42% / 38% 62% 44% 56%; }
+  100% { border-radius: 50% 50% 44% 56% / 56% 44% 50% 50%; }
+}
+
+@keyframes morph-b {
+  0%   { border-radius: 44% 56% 60% 40% / 56% 44% 56% 44%; }
+  33%  { border-radius: 62% 38% 44% 56% / 40% 60% 38% 62%; }
+  66%  { border-radius: 38% 62% 56% 44% / 62% 38% 60% 40%; }
+  100% { border-radius: 56% 44% 38% 62% / 44% 56% 42% 58%; }
+}
+
+@keyframes morph-c {
+  0%   { border-radius: 52% 48% 44% 56% / 60% 40% 56% 44%; }
+  50%  { border-radius: 40% 60% 62% 38% / 44% 56% 40% 60%; }
+  100% { border-radius: 60% 40% 50% 50% / 38% 62% 56% 44%; }
+}
+
+@keyframes morph-d {
+  0%   { border-radius: 48% 52% 56% 44% / 54% 46% 48% 52%; }
+  40%  { border-radius: 64% 36% 42% 58% / 42% 58% 62% 38%; }
+  80%  { border-radius: 36% 64% 58% 42% / 60% 40% 36% 64%; }
+  100% { border-radius: 52% 48% 46% 54% / 48% 52% 54% 46%; }
+}
+
+// Glass card container
+.body-card {
+  backdrop-filter: blur(2px);
+  background: rgba(18, 20, 23, 0.70);
+  border-radius: 8px;
+  padding: 40px;
+  width: calc(100% - 64px);
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  box-sizing: border-box;
+}
+
+// Mouse-tracking shimmer + border reveal on cards
+.metric-card,
+.inputs-wrapper,
+.origin-shielding-wrapper,
+.origin-chart-wrapper {
+  position: relative;
+  border-color: transparent; // hide static border; revealed via ::before on hover
+
+  // Border reveal: gradient acts as light source illuminating the border
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      200px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+      rgba(255, 255, 255, 0.45),
+      transparent 65%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  // Inner shimmer glow
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+      rgba(255, 255, 255, 0.06),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Inputs section title
+.inputs-section-title {
+  font-family: 'TT Hoves Pro', $font-family-inter;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-h4;
+  color: #ffffff;
+  letter-spacing: 0.024px;
+  margin: 0;
+  white-space: nowrap;
 }
 
 // Inputs wrapper container
 .inputs-wrapper {
-  background-color: $color-surface-primary;
+  background-color: $color-bg-card;
   border: 1px solid $color-border-primary;
-  border-radius: $border-radius-lg;
+  border-radius: $border-radius-md;
   padding: $spacing-6;
   display: flex;
   flex-direction: column;
@@ -135,7 +400,7 @@ body{
   user-select: none;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -165,10 +430,10 @@ body{
   left: 0;
   right: 0;
   margin-top: 4px;
-  background-color: $color-surface-primary;
+  background-color: #1a1d21;
   border: 1px solid $color-border-primary;
   border-radius: $border-radius-md;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   list-style: none;
   padding: 4px 0;
   margin: 4px 0 0 0;
@@ -191,11 +456,11 @@ body{
     transition: background-color 0.15s ease;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.08);
     }
 
     &:active {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.12);
     }
   }
 }
@@ -238,7 +503,7 @@ body{
   border-left: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  height: 36px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,6 +524,46 @@ body{
   width: 100%;
 }
 
+// Switch input type button (Security tab)
+.switch-input-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-md;
+  color: $color-accent-blue;
+  cursor: pointer;
+  letter-spacing: 0.07px;
+  margin-top: -$spacing-3;
+}
+
+// Formula note inside metric cards (Security tab)
+.formula-note {
+  font-family: $font-family-inter;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-sm;
+  color: $color-text-secondary;
+  letter-spacing: 0.09px;
+  margin: auto 0 0;
+  padding-top: $spacing-3;
+  width: 100%;
+
+  strong {
+    font-weight: $font-weight-semi-bold;
+    color: $color-text-primary;
+  }
+}
+
+// Small unit suffix next to metric value (e.g. "hrs/yr")
+.metric-value-unit {
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+  color: $color-text-secondary;
+}
+
 // Metrics card wrapper
 .metrics-card-wrapper {
   display: flex;
@@ -270,10 +575,10 @@ body{
 // Metric card
 .metric-card {
   flex: 1;
-  background-color: $color-surface-primary;
+  background-color: $color-bg-card;
   border: 1px solid $color-border-primary;
-  border-radius: 16px;
-  padding: 12px $spacing-6;
+  border-radius: $border-radius-md;
+  padding: 16px $spacing-6;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -305,9 +610,9 @@ body{
 // Metric value
 .metric-value {
   font-family: $font-family-inter;
-  font-size: $font-size-h4;
+  font-size: 20px;
   font-weight: $font-weight-bold;
-  line-height: $line-height-h4;
+  line-height: 28px;
   color: $color-text-primary;
   letter-spacing: 0.024px;
   flex: 1;
@@ -321,7 +626,7 @@ body{
 
 // Metric pill (badge)
 .metric-pill {
-  background-color: #f5ffc2;
+  background-color: $color-savings-green-bg;
   border-radius: $border-radius-md;
   padding: 0 4px;
   display: flex;
@@ -345,16 +650,16 @@ body{
   font-size: $font-size-sm;
   font-weight: $font-weight-semi-bold;
   line-height: $line-height-sm;
-  color: #427100;
+  color: $color-savings-green;
   letter-spacing: 0.09px;
   white-space: nowrap;
 }
 
 // Origin shielding wrapper
 .origin-shielding-wrapper {
-  background-color: $color-surface-primary;
+  background-color: $color-bg-card;
   border: 1px solid $color-border-primary;
-  border-radius: 16px;
+  border-radius: $border-radius-md;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -363,8 +668,8 @@ body{
 .origin-shielding-content {
   position: relative;
   width: 100%;
-  min-height: 240px;
-  padding: 32px 40px;
+  min-height: 280px;
+  padding: 56px 40px 40px;
   box-sizing: border-box;
 }
 
@@ -456,7 +761,7 @@ body{
 }
 
 .bill-amount {
-  color: #bd140a; // Error/red color for when toggle is off
+  color: $color-text-primary;
 }
 
 // Arrow container
@@ -511,7 +816,8 @@ body{
 }
 
 .fastly-logo-container {
-  background: white;
+  background: #000000;
+  border: 1px solid $color-border-primary;
   border-radius: 100px;
   padding: 8px;
   display: flex;
@@ -563,7 +869,7 @@ body{
 }
 
 .savings-amount-container {
-  background-color: #f5ffc2;
+  background-color: $color-savings-green-bg;
   border-radius: 8px;
   padding: 4px 8px;
   display: flex;
@@ -577,7 +883,7 @@ body{
   font-size: 24px;
   font-weight: $font-weight-bold;
   line-height: 32px;
-  color: #427100;
+  color: $color-savings-green;
   letter-spacing: 0.036px;
   text-align: center;
   margin: 0;
@@ -592,7 +898,7 @@ body{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 188px;
+  top: 220px;
 }
 
 // Origin toggle
@@ -634,33 +940,28 @@ body{
   font-size: $font-size-h4;
   font-weight: $font-weight-bold;
   line-height: $line-height-h4;
-  color: #000000;
+  color: $color-text-primary;
   letter-spacing: 0.024px;
   margin: 0;
   white-space: nowrap;
 }
 
-// When toggle is on, update bill amount color
-.origin-shielding-wrapper.toggle-on .bill-amount {
-  color: $color-text-primary;
-}
 
 .header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 0 0;
-  width: calc(100% - 64px);
+  padding: 16px 0 32px;
+  width: 100%;
   box-sizing: border-box;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
 
   h1 {
-    font-family: 'ES Rebond Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'TT Hoves Pro', $font-family-inter;
     font-size: 40px;
-    font-weight: 800; // Extrabold
+    font-weight: 600;
     line-height: 1;
-    color: #000000;
+    color: #ffffff;
     margin: 0;
     white-space: nowrap;
   }
@@ -672,15 +973,15 @@ body{
   }
 
   button {
-    border: 1px solid #000000;
-    border-radius: 8px;
+    border: 1px solid $color-accent-blue;
+    border-radius: 4px;
     background: transparent;
-    padding: 8px;
+    padding: 8px 16px;
     font-family: $font-family-inter;
     font-size: 14px;
     font-weight: $font-weight-semi-bold;
     line-height: 20px;
-    color: #121417;
+    color: #ffffff;
     cursor: pointer;
     white-space: nowrap;
     letter-spacing: 0.07px;
@@ -688,10 +989,10 @@ body{
     position: relative;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: rgba(0, 103, 209, 0.15);
     }
   }
-  
+
   .share-button {
     .tooltip {
       position: absolute;
@@ -703,13 +1004,13 @@ body{
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-      
+
       &.show {
         display: block;
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
-      
+
       .tooltip-body {
         background-color: #121417;
         border-radius: 4px;
@@ -718,13 +1019,13 @@ body{
         gap: 8px;
         align-items: center;
         box-shadow: 0px 4px 8px 0px rgba(11, 13, 14, 0.25);
-        
+
         .tooltip-icon {
           flex-shrink: 0;
           width: 20px;
           height: 20px;
         }
-        
+
         span {
           font-family: $font-family-inter;
           font-size: 12px;
@@ -739,8 +1040,8 @@ body{
   }
 
   a {
-    background-color: #121417;
-    border-radius: 8px;
+    background-color: $color-accent-blue;
+    border-radius: 4px;
     padding: 8px 16px;
     font-family: $font-family-inter;
     font-size: 14px;
@@ -754,21 +1055,62 @@ body{
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: #004099;
+      background-color: #0052a8;
     }
   }
 }
 
 
+// Product tab bar
+.product-tabs-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  padding: 0 0 0;
+}
+
+.product-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 4px;
+  border: 1px solid #616161;
+  background: transparent;
+  font-family: $font-family-inter;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-md;
+  color: #dbdbdb;
+  letter-spacing: 0.07px;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.75;
+
+  &--active {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: #ffffff;
+    color: #ffffff;
+    opacity: 1;
+  }
+}
+
+.product-tab__icon {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
 .main-content-wrapper{
     display: flex;
     flex-direction: row;
     gap: 24px;
-    margin: 32px auto;
-    padding: 0;
+    margin: 0;
+    padding: 24px 0 0;
+    width: 100%;
     box-sizing: border-box;
-    width: calc(100% - 64px);
-    max-width: 1200px;
+    position: relative;
 
     .results-wrapper{
         flex: 1;
@@ -782,9 +1124,9 @@ body{
 
 // Origin chart wrapper
 .origin-chart-wrapper {
-  background-color: $color-surface-primary;
+  background-color: $color-bg-card;
   border: 1px solid $color-border-primary;
-  border-radius: 16px;
+  border-radius: $border-radius-md;
   position: relative;
   width: 100%;
   max-width: 100%;
@@ -793,7 +1135,7 @@ body{
   flex-direction: column;
   gap: $spacing-6;
   box-sizing: border-box;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 // Chart header
@@ -891,7 +1233,7 @@ body{
 
 .stat-item {
   flex: 1;
-  background-color: rgba(244, 238, 236, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   padding: $spacing-5;
   display: flex;
   flex-direction: column;
@@ -918,7 +1260,7 @@ body{
   font-size: 20px;
   font-weight: $font-weight-bold;
   line-height: 28px;
-  color: #427100;
+  color: $color-savings-green;
   letter-spacing: 0.03px;
   white-space: nowrap;
 }
@@ -947,7 +1289,7 @@ body{
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 32px 0 0;
+  padding: 16px 0 40px;
 }
 
 @media screen and (max-width: 980px) {
@@ -996,8 +1338,13 @@ body{
 }
 
 @media screen and (max-width: 650px) {
-  .main-content-wrapper, .header-wrapper{
+  .body-card {
     width: calc(100% - 32px);
+    padding: 24px;
+  }
+
+  .main-content-wrapper, .header-wrapper, .product-tabs-wrapper {
+    width: 100%;
   }
   
   .fastly-savings-container{

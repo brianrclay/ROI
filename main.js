@@ -369,8 +369,8 @@ $(document).ready(function() {
                             {
                                 label: 'Origin costs',
                                 data: [currentOriginCost, fastlyOriginCost],
-                                backgroundColor: '#121417',
-                                borderColor: '#121417',
+                                backgroundColor: '#0067d1',
+                                borderColor: '#0067d1',
                                 borderWidth: 0,
                                 borderRadius: {
                                     topLeft: 8,
@@ -426,7 +426,7 @@ $(document).ready(function() {
                                     drawBorder: false
                                 },
                                 ticks: {
-                                    color: '#3a424a',
+                                    color: '#ffffff',
                                     font: {
                                         family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                                         size: 14,
@@ -447,7 +447,7 @@ $(document).ready(function() {
                                         var maxValue = Math.max(currentOriginCost, fastlyOriginCost);
                                         return (maxValue * 1.1) / 2;
                                     })(),
-                                    color: '#677483',
+                                    color: '#dbdbdb',
                                     font: {
                                         family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                                         size: 12,
@@ -462,11 +462,11 @@ $(document).ready(function() {
                                     }
                                 },
                                 grid: {
-                                    color: '#9EA8B2',
+                                    color: 'rgba(255,255,255,0.1)',
                                     lineWidth: 1,
                                     borderDash: [2, 2],
                                     drawBorder: true,
-                                    borderColor: '#9EA8B2'
+                                    borderColor: 'rgba(255,255,255,0.1)'
                                 }
                             }
                         },
@@ -769,7 +769,202 @@ $(document).ready(function() {
         }
     });
     
-    // Origin savings card metrics
+    // ── Tab switching ────────────────────────────────────────────────────
+    $('#tab-network').on('click', function() {
+        $('#tab-network').addClass('product-tab--active');
+        $('#tab-security').removeClass('product-tab--active');
+        $('#network-content').show();
+        $('#security-content').hide();
+    });
+
+    $('#tab-security').on('click', function() {
+        $('#tab-security').addClass('product-tab--active');
+        $('#tab-network').removeClass('product-tab--active');
+        $('#security-content').show();
+        $('#network-content').hide();
+        if (!secChartInitialized) {
+            initSecurityChart();
+            secChartInitialized = true;
+        }
+        updateSecurityDisplays();
+    });
+
+    // ── Security tab ─────────────────────────────────────────────────────
+    var secChartInitialized = false;
+    var secInputMode = 'bandwidth'; // 'bandwidth' | 'requests'
+    var secDowntimeChart = null;
+
+    function getSecInputs() {
+        var downtimeHours = parseFloat($('#sec-downtime-hours').val()) || 0;
+        downtimeHours = Math.min(downtimeHours, 8760);
+        var botVolume     = parseFloat($('#sec-bot-volume').val().replace('%', ''))     / 100 || 0;
+        var botMitigation = parseFloat($('#sec-bot-mitigation').val().replace('%', '')) / 100 || 0;
+        var downtimeRisk  = parseFloat($('#sec-downtime-risk').val().replace('%', ''))  / 100 || 0;
+        return { downtimeHours, botVolume, botMitigation, downtimeRisk };
+    }
+
+    function updateSecurityDisplays() {
+        var s = getSecInputs();
+        var botTrafficReduced  = s.botVolume * s.botMitigation;
+        var originLoadReduced  = botTrafficReduced;
+        var downtimeReduced    = s.downtimeHours * s.downtimeRisk;
+        var downtimeRemaining  = s.downtimeHours - downtimeReduced;
+
+        $('#sec-bot-traffic-value').text(Math.round(botTrafficReduced * 100) + '%');
+        $('#sec-origin-load-value').text(Math.round(originLoadReduced * 100) + '%');
+        $('#sec-downtime-value').text(parseFloat(downtimeReduced.toFixed(1)));
+
+        // Chart subtitle
+        if (secInputMode === 'requests') {
+            var reqs = parseFloat($('#sec-monthly-requests').val().replace(/,/g, '')) || 0;
+            var label = reqs >= 1e9 ? (reqs / 1e9).toFixed(1) + 'B'
+                      : reqs >= 1e6 ? (reqs / 1e6).toFixed(1) + 'M'
+                      : reqs.toLocaleString();
+            $('#sec-chart-subtitle').text(label + ' monthly requests');
+        } else {
+            var bw   = parseFloat($('#sec-monthly-bandwidth').val()) || 0;
+            var unit = $('#sec-bw-unit-dropdown .dropdown-value').text();
+            $('#sec-chart-subtitle').text(bw + ' ' + unit + ' bandwidth');
+        }
+
+        // Update chart
+        if (secDowntimeChart) {
+            secDowntimeChart.data.datasets[0].data = [s.downtimeHours, Math.max(0, downtimeRemaining)];
+            var maxVal = Math.max(s.downtimeHours, 0.1);
+            secDowntimeChart.options.scales.y.max = maxVal * 1.15;
+            secDowntimeChart.options.scales.y.ticks.stepSize = (maxVal * 1.15) / 2;
+            secDowntimeChart.update();
+        }
+    }
+
+    function initSecurityChart() {
+        var ctx = document.getElementById('downtime-chart');
+        if (!ctx) return;
+        var s = getSecInputs();
+        var downtimeReduced   = s.downtimeHours * s.downtimeRisk;
+        var downtimeRemaining = Math.max(0, s.downtimeHours - downtimeReduced);
+        var maxVal = Math.max(s.downtimeHours, 0.1);
+
+        secDowntimeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Current state', 'With Fastly'],
+                datasets: [{
+                    label: 'Downtime (hrs)',
+                    data: [s.downtimeHours, downtimeRemaining],
+                    backgroundColor: '#0067d1',
+                    borderColor: '#0067d1',
+                    borderWidth: 0,
+                    borderRadius: { topLeft: 8, topRight: 8, bottomLeft: 0, bottomRight: 0 }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: true,
+                        displayColors: false,
+                        backgroundColor: '#1a1d21',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        padding: 12,
+                        callbacks: {
+                            title: function() { return ''; },
+                            label: function(ctx) {
+                                return ctx.label + ': ' + ctx.parsed.y.toFixed(1) + ' hrs/yr';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#ffffff',
+                            font: { family: "'Inter', sans-serif", size: 14 },
+                            padding: 8
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: maxVal * 1.15,
+                        ticks: {
+                            maxTicksLimit: 3,
+                            stepSize: (maxVal * 1.15) / 2,
+                            color: '#dbdbdb',
+                            font: { family: "'Inter', sans-serif", size: 12, weight: 300 },
+                            padding: 8,
+                            callback: function(v) {
+                                return v.toFixed(1) + ' hrs';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.1)',
+                            lineWidth: 1,
+                            borderDash: [2, 2]
+                        }
+                    }
+                },
+                layout: { padding: { left: 0, right: 16, top: 8, bottom: 16 } }
+            }
+        });
+    }
+
+    // Security input events
+    $('#sec-downtime-hours, #sec-bot-volume, #sec-bot-mitigation, #sec-downtime-risk').on('input change', updateSecurityDisplays);
+    $('#sec-monthly-bandwidth').on('input', updateSecurityDisplays);
+
+    // Monthly requests — format with commas as the user types
+    $('#sec-monthly-requests').on('input', function() {
+        var cursor = this.selectionStart;
+        var prevLen = $(this).val().length;
+        var digits = $(this).val().replace(/[^0-9]/g, '');
+        var formatted = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        $(this).val(formatted);
+        // Adjust cursor for added/removed commas
+        var diff = formatted.length - prevLen;
+        this.setSelectionRange(cursor + diff, cursor + diff);
+        updateSecurityDisplays();
+    });
+
+    // Security bandwidth unit dropdown
+    $('#sec-bw-unit-dropdown').on('click', function(e) {
+        e.stopPropagation();
+        $('#sec-bw-unit-menu').toggleClass('active');
+    });
+    $('#sec-bw-unit-menu li').on('click', function(e) {
+        e.stopPropagation();
+        $('#sec-bw-unit-dropdown .dropdown-value').text($(this).data('value'));
+        $('#sec-bw-unit-menu').removeClass('active');
+        updateSecurityDisplays();
+    });
+
+    // Switch to requests / Switch to bandwidth
+    $('#sec-switch-input').on('click', function() {
+        if (secInputMode === 'bandwidth') {
+            secInputMode = 'requests';
+            $('#sec-bandwidth-group').hide();
+            $('#sec-requests-group').show();
+            $(this).text('Switch to bandwidth');
+        } else {
+            secInputMode = 'bandwidth';
+            $('#sec-requests-group').hide();
+            $('#sec-bandwidth-group').show();
+            $(this).text('Switch to requests');
+        }
+        updateSecurityDisplays();
+    });
+
+    // Card shimmer — follows mouse position within each card
+    document.querySelectorAll('.metric-card, .inputs-wrapper, .origin-shielding-wrapper, .origin-chart-wrapper, #security-content .inputs-wrapper, #security-content .origin-chart-wrapper').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+            var rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+        });
+    });
 
 });
 

@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROI</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
+    <div class="bg-blobs" aria-hidden="true">
+        <div class="bg-blob bg-blob--red-a"></div>
+        <div class="bg-blob bg-blob--red-b"></div>
+        <div class="bg-blob bg-blob--crimson"></div>
+        <div class="bg-blob bg-blob--navy"></div>
+        <div class="bg-blob bg-blob--purple"></div>
+    </div>
     <div class="logo-wrapper">
         <svg width="83" height="32" viewBox="0 0 83 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_514_8258)">
@@ -28,9 +36,10 @@
             </defs>
         </svg>                       
     </div>
+    <div class="body-card">
     <div class="header-wrapper">
         <h1>
-            Delivery ROI
+            Fastly ROI calculator
         </h1>
         <div>
             <button class="share-button">
@@ -50,8 +59,20 @@
             </a>
         </div>
     </div>
-    <div class="main-content-wrapper">
+    <div class="product-tabs-wrapper">
+        <button class="product-tab product-tab--active" id="tab-network">
+            <img src="https://www.figma.com/api/mcp/asset/05dcfc42-da3e-4db4-b2da-b34e8506e6f7" alt="" class="product-tab__icon" width="20" height="20">
+            Network Services
+        </button>
+        <button class="product-tab" id="tab-security">
+            <img src="https://www.figma.com/api/mcp/asset/b547a13d-f0b1-4dec-981b-3f29f20e786a" alt="" class="product-tab__icon" width="20" height="20">
+            Security
+        </button>
+    </div>
+    <div class="main-content-wrapper" id="network-content">
+
         <div class="inputs-wrapper">
+            <p class="inputs-section-title">Your current state</p>
             <!-- Monthly bandwidth -->
             <div class="combo-input">
                 <label class="input-label">Monthly bandwidth</label>
@@ -152,19 +173,7 @@
                         <!-- Monthly bandwidth -->
                         <div class="bandwidth-container">
                             <div class="globe-icon">
-                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24 3.56C12.6768 3.56 3.5 12.7126 3.5 24C3.5 35.2873 12.6768 44.44 24 44.44C35.3232 44.44 44.5 35.2873 44.5 24C44.5 12.7126 35.3232 3.56 24 3.56ZM2.5 24C2.5 12.1577 12.1272 2.56 24 2.56C35.8728 2.56 45.5 12.1577 45.5 24C45.5 35.8423 35.8728 45.44 24 45.44C12.1272 45.44 2.5 35.8423 2.5 24Z" fill="black"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.5 44.565V2.935H24.5V44.565H23.5Z" fill="black"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.125 23.25H44.875V24.25H3.125V23.25Z" fill="black"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.86035 13.34H42.1404V14.34H5.86035V13.34Z" fill="black"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.86035 34.155H42.1404V35.155H5.86035V34.155Z" fill="black"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8898 9.50991C14.9994 13.1925 13.8154 18.3147 13.8154 24C13.8154 29.6853 14.9994 34.8075 16.8898 38.4901C18.7937 42.199 21.3344 44.315 24.0004 44.315C26.6665 44.315 29.2072 42.199 31.1111 38.4901C33.0014 34.8075 34.1854 29.6853 34.1854 24C34.1854 18.3147 33.0014 13.1925 31.1111 9.50991C29.2072 5.80104 26.6665 3.685 24.0004 3.685C21.3344 3.685 18.7937 5.80104 16.8898 9.50991ZM16.0002 9.05323C17.9635 5.22855 20.7653 2.685 24.0004 2.685C27.2355 2.685 30.0374 5.22855 32.0007 9.05323C33.9775 12.9042 35.1854 18.1894 35.1854 24C35.1854 29.8105 33.9775 35.0958 32.0007 38.9468C30.0374 42.7714 27.2355 45.315 24.0004 45.315C20.7653 45.315 17.9635 42.7714 16.0002 38.9468C14.0234 35.0958 12.8154 29.8105 12.8154 24C12.8154 18.1894 14.0234 12.9042 16.0002 9.05323Z" fill="black"/>
-                                    <path d="M33.25 16.5C34.7688 16.5 36 15.2688 36 13.75C36 12.2312 34.7688 11 33.25 11C31.7312 11 30.5 12.2312 30.5 13.75C30.5 15.2688 31.7312 16.5 33.25 16.5Z" fill="#006AFF"/>
-                                    <path d="M14.75 16.5C16.2688 16.5 17.5 15.2688 17.5 13.75C17.5 12.2312 16.2688 11 14.75 11C13.2312 11 12 12.2312 12 13.75C12 15.2688 13.2312 16.5 14.75 16.5Z" fill="#006AFF"/>
-                                    <path d="M14.75 37.5C16.2688 37.5 17.5 36.2688 17.5 34.75C17.5 33.2312 16.2688 32 14.75 32C13.2312 32 12 33.2312 12 34.75C12 36.2688 13.2312 37.5 14.75 37.5Z" fill="#006AFF"/>
-                                    <path d="M24.25 27C25.7688 27 27 25.7688 27 24.25C27 22.7312 25.7688 21.5 24.25 21.5C22.7312 21.5 21.5 22.7312 21.5 24.25C21.5 25.7688 22.7312 27 24.25 27Z" fill="#006AFF"/>
-                                    <path d="M33.25 37.5C34.7688 37.5 36 36.2688 36 34.75C36 33.2312 34.7688 32 33.25 32C31.7312 32 30.5 33.2312 30.5 34.75C30.5 36.2688 31.7312 37.5 33.25 37.5Z" fill="#006AFF"/>
-                                </svg>                                    
+                                <img src="https://www.figma.com/api/mcp/asset/04da88c7-14b9-49b6-b413-b8e25daa0a98" alt="Globe" width="48" height="48">
                             </div>
                             <div class="bandwidth-info">
                                 <p class="info-label">Monthly bandwidth</p>
@@ -184,11 +193,7 @@
                         <div class="fastly-savings-container" id="fastly-savings">
                             <div class="fastly-logo-container">
                                 <div class="fastly-logo">
-                                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="48" height="48" fill="white"/>
-                                        <path d="M27.2662 7.88409V4.7445H28.3875V2.39999H19.0911V4.7445H20.2124V7.90448C11.446 9.57621 4.7998 17.3029 4.7998 26.5789C4.7998 37.0782 13.3216 45.6 23.8209 45.6C34.3201 45.6 42.8419 37.0782 42.8419 26.5789C42.8419 17.2621 36.1346 9.49466 27.2662 7.88409ZM24.3509 36.3443V35.2434H23.25V36.3239C18.296 36.0385 14.3409 32.0427 14.0759 27.0886H15.1768V25.9877H14.0963C14.3817 21.0541 18.3368 17.1194 23.2704 16.8136V17.8941H24.3713V16.7932C29.3457 17.0582 33.3416 21.0337 33.6066 26.0081H32.5057V27.109H33.6066C33.3008 32.1038 29.3253 36.0997 24.3509 36.3443Z" fill="#FF282D"/>
-                                        <path d="M27.8167 21.9307L24.4324 24.8868C23.8004 24.6625 23.0665 24.8053 22.5568 25.3149C21.8433 26.0285 21.8433 27.1701 22.5568 27.8633C23.2704 28.5768 24.412 28.5768 25.1052 27.8633C25.6149 27.3536 25.7576 26.6197 25.5333 25.9877L28.5302 22.6442L27.8167 21.9307Z" fill="#FF282D"/>
-                                    </svg>                                                                               
+                                    <img src="https://www.figma.com/api/mcp/asset/4ab74f8c-8693-4227-bb7c-b3a877f6a44e" alt="Fastly" width="48" height="48">
                                 </div>
                             </div>
                             <div class="savings-info">
@@ -210,15 +215,7 @@
                         <!-- Estimated origin bill -->
                         <div class="bill-container">
                             <div class="aws-icon">
-                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M39.08 38.085V43.9149H44V38.085H39.08Z" fill="white"/>
-                                    <path d="M9.42 38.085H8.92V43.9149H4V38.085H3.5H9.42Z" fill="white"/>
-                                    <path d="M38.08 38.085V44.5599C38.08 44.607 38.0894 44.6535 38.1075 44.6969C38.1257 44.7403 38.1523 44.7797 38.1858 44.8127C38.2192 44.8458 38.259 44.8718 38.3026 44.8893C38.3463 44.9069 38.393 44.9156 38.44 44.9149H44.645C44.7392 44.9149 44.8295 44.8775 44.896 44.8109C44.9626 44.7444 45 44.6541 45 44.5599L45 38.085H44V43.9149H39.08V38.085H38.08Z" fill="#3A424A"/>
-                                    <path d="M3 38.085V44.5599C3 44.6541 3.0374 44.7444 3.10398 44.8109C3.17055 44.8775 3.26085 44.9149 3.355 44.9149H9.56C9.60704 44.9156 9.65374 44.9069 9.69739 44.8893C9.74104 44.8718 9.78077 44.8458 9.81426 44.8127C9.84776 44.7797 9.87435 44.7403 9.89251 44.6969C9.91066 44.6535 9.92 44.607 9.92 44.5599V38.085H8.92V43.9149H4V38.085H3Z" fill="#3A424A"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M44.115 3H3.885C3.39623 3 3 3.39623 3 3.885V13.15C3 13.6388 3.39623 14.035 3.885 14.035H44.115C44.6038 14.035 45 13.6388 45 13.15V3.885C45 3.39623 44.6038 3 44.115 3ZM14.86 10C14.5623 9.99996 14.2713 9.91132 14.0241 9.74537C13.7769 9.57941 13.5847 9.34365 13.472 9.0681C13.3592 8.79255 13.331 8.48968 13.3909 8.19805C13.4509 7.90641 13.5962 7.63921 13.8085 7.43046C14.0208 7.22172 14.2904 7.08086 14.583 7.02584C14.8756 6.97082 15.178 7.00411 15.4516 7.12149C15.7252 7.23886 15.9577 7.435 16.1195 7.68494C16.2812 7.93488 16.365 8.22731 16.36 8.525C16.3535 8.91848 16.1925 9.29362 15.9119 9.56954C15.6313 9.84546 15.2536 10.0001 14.86 10ZM8.93003 10C8.63234 10.005 8.33991 9.92126 8.08997 9.75948C7.84003 9.59771 7.64389 9.36521 7.52652 9.0916C7.40914 8.81798 7.37585 8.51563 7.43087 8.22303C7.48589 7.93043 7.62675 7.66082 7.83549 7.44853C8.04424 7.23625 8.31144 7.09088 8.60308 7.03095C8.89471 6.97102 9.19758 6.99923 9.47313 7.11199C9.74868 7.22475 9.98444 7.41695 10.1504 7.66414C10.3163 7.91133 10.405 8.20231 10.405 8.50004C10.4051 8.89357 10.2505 9.27136 9.97457 9.55195C9.69865 9.83255 9.32351 9.99348 8.93003 10ZM19.9541 9.74537C20.2013 9.91132 20.4923 9.99996 20.79 10C21.1835 10.0001 21.5613 9.84546 21.8419 9.56954C22.1225 9.29362 22.2835 8.91848 22.29 8.525C22.295 8.22731 22.2112 7.93488 22.0495 7.68494C21.8877 7.435 21.6552 7.23886 21.3816 7.12149C21.108 7.00411 20.8056 6.97082 20.513 7.02584C20.2204 7.08086 19.9508 7.22172 19.7385 7.43046C19.5262 7.63921 19.3809 7.90641 19.3209 8.19805C19.261 8.48968 19.2892 8.79255 19.402 9.0681C19.5147 9.34365 19.7069 9.57941 19.9541 9.74537Z" fill="#0067D1"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.885 27.05H44.115C44.3497 27.05 44.5748 27.1432 44.7408 27.3092C44.9068 27.4752 45 27.7003 45 27.935V38.085H3V27.935C3 27.7003 3.09324 27.4752 3.25921 27.3092C3.42518 27.1432 3.65028 27.05 3.885 27.05ZM8.93003 34.045C8.63234 34.0499 8.33991 33.9662 8.08997 33.8044C7.84003 33.6426 7.64389 33.4101 7.52652 33.1365C7.40914 32.8629 7.37585 32.5605 7.43087 32.2679C7.48589 31.9753 7.62675 31.7057 7.83549 31.4935C8.04424 31.2812 8.31144 31.1358 8.60308 31.0759C8.89471 31.0159 9.19758 31.0441 9.47313 31.1569C9.74868 31.2697 9.98444 31.4619 10.1504 31.7091C10.3163 31.9562 10.405 32.2472 10.405 32.545C10.4083 32.7407 10.3726 32.9352 10.3 33.1171C10.2274 33.2989 10.1193 33.4645 9.98195 33.6041C9.84465 33.7438 9.68093 33.8547 9.50032 33.9303C9.31972 34.006 9.12585 34.045 8.93003 34.045ZM14.0266 33.7922C14.2733 33.9571 14.5633 34.045 14.86 34.045C15.2578 34.045 15.6393 33.887 15.9206 33.6057C16.202 33.3244 16.36 32.9429 16.36 32.545C16.36 32.2484 16.272 31.9584 16.1072 31.7117C15.9424 31.465 15.7081 31.2728 15.434 31.1592C15.1599 31.0457 14.8583 31.016 14.5674 31.0739C14.2764 31.1317 14.0091 31.2746 13.7993 31.4844C13.5895 31.6942 13.4467 31.9614 13.3888 32.2524C13.3309 32.5434 13.3606 32.845 13.4742 33.1191C13.5877 33.3932 13.78 33.6274 14.0266 33.7922ZM20.79 34.045C20.4933 34.045 20.2033 33.9571 19.9566 33.7922C19.7099 33.6274 19.5177 33.3932 19.4042 33.1191C19.2906 32.845 19.2609 32.5434 19.3188 32.2524C19.3767 31.9614 19.5195 31.6942 19.7293 31.4844C19.9391 31.2746 20.2064 31.1317 20.4973 31.0739C20.7883 31.016 21.0899 31.0457 21.364 31.1592C21.6381 31.2728 21.8724 31.465 22.0372 31.7117C22.202 31.9584 22.29 32.2484 22.29 32.545C22.29 32.9429 22.1319 33.3244 21.8506 33.6057C21.5693 33.887 21.1878 34.045 20.79 34.045Z" fill="#0067D1"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.885 15.025H44.115C44.6038 15.025 45 15.4212 45 15.91V25.175C45 25.6638 44.6038 26.06 44.115 26.06H3.885C3.39623 26.06 3 25.6638 3 25.175V15.91C3 15.4212 3.39623 15.025 3.885 15.025ZM8.08738 21.7577C8.33785 21.9206 8.63127 22.005 8.93001 22C9.31919 21.9936 9.69064 21.8361 9.96587 21.5609C10.2411 21.2857 10.3986 20.9142 10.405 20.525C10.4099 20.2263 10.3256 19.9329 10.1627 19.6824C9.99975 19.4319 9.76576 19.2358 9.49067 19.1192C9.21559 19.0026 8.91194 18.9708 8.61866 19.0279C8.32538 19.0849 8.05583 19.2283 7.84455 19.4396C7.63328 19.6509 7.48992 19.9204 7.43284 20.2137C7.37576 20.507 7.40757 20.8106 7.52419 21.0857C7.6408 21.3608 7.83692 21.5948 8.08738 21.7577ZM14.86 22C14.5623 22 14.2713 21.9113 14.0241 21.7454C13.7769 21.5794 13.5847 21.3437 13.472 21.0681C13.3592 20.7926 13.331 20.4897 13.3909 20.198C13.4509 19.9064 13.5962 19.6392 13.8085 19.4305C14.0208 19.2217 14.2904 19.0809 14.583 19.0258C14.8756 18.9708 15.178 19.0041 15.4516 19.1215C15.7252 19.2389 15.9577 19.435 16.1195 19.6849C16.2812 19.9349 16.365 20.2273 16.36 20.525C16.3535 20.9185 16.1925 21.2936 15.9119 21.5695C15.6313 21.8455 15.2536 22.0001 14.86 22ZM19.9541 21.7454C20.2013 21.9113 20.4923 22 20.79 22C21.1835 22.0001 21.5613 21.8455 21.8419 21.5695C22.1225 21.2936 22.2835 20.9185 22.29 20.525C22.295 20.2273 22.2112 19.9349 22.0495 19.6849C21.8877 19.435 21.6552 19.2389 21.3816 19.1215C21.108 19.0041 20.8056 18.9708 20.513 19.0258C20.2204 19.0809 19.9508 19.2217 19.7385 19.4305C19.5262 19.6392 19.3809 19.9064 19.3209 20.198C19.261 20.4897 19.2892 20.7926 19.402 21.0681C19.5147 21.3437 19.7069 21.5794 19.9541 21.7454Z" fill="#0067D1"/>
-                                </svg>                                    
+                                <img src="https://www.figma.com/api/mcp/asset/e800e5bb-661c-4ca9-abea-256fc14b12f3" alt="Origin server" width="48" height="48">
                             </div>
                             <div class="bill-info">
                                 <p class="info-label">Estimated origin costs</p>
@@ -247,7 +244,7 @@
                     </div>
                     <div class="chart-legend">
                         <div class="legend-item">
-                            <div class="legend-color" style="background-color: #121417;"></div>
+                            <div class="legend-color" style="background-color: #0067d1;"></div>
                             <span class="legend-label">Origin costs</span>
                         </div>
                     </div>
@@ -283,7 +280,117 @@
                 </div> -->
             </div>
         </div>
-    </div>
+    </div><!-- /.main-content-wrapper network -->
+
+    <!-- ── Security tab content ─────────────────────────────────────── -->
+    <div class="main-content-wrapper" id="security-content" style="display:none">
+
+        <div class="inputs-wrapper">
+            <p class="inputs-section-title">Your current state</p>
+
+            <!-- Monthly bandwidth (default) -->
+            <div class="combo-input" id="sec-bandwidth-group">
+                <label class="input-label">Monthly bandwidth</label>
+                <div class="input-wrapper">
+                    <input type="number" class="text-input" value="100" id="sec-monthly-bandwidth">
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown-select" id="sec-bw-unit-dropdown">
+                            <span class="dropdown-value">TB</span>
+                            <svg class="caret-down" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <ul class="dropdown-menu" id="sec-bw-unit-menu">
+                            <li data-value="GB">GB</li>
+                            <li data-value="TB">TB</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monthly requests (shown when switched) -->
+            <div class="text-input-group" id="sec-requests-group" style="display:none">
+                <label class="input-label">Monthly requests</label>
+                <input type="text" inputmode="numeric" class="text-input" value="2,000,000,000" id="sec-monthly-requests">
+            </div>
+
+            <button class="switch-input-btn" id="sec-switch-input">Switch to requests</button>
+
+            <!-- Estimated downtime -->
+            <div class="text-input-group">
+                <label class="input-label">Estimated downtime</label>
+                <div class="input-content-wrapper">
+                    <div class="cost-input-wrapper">
+                        <input type="text" class="text-input" value="8" id="sec-downtime-hours">
+                        <span class="cost-unit">per year</span>
+                    </div>
+                    <p class="helper-text">Hours of downtime from security incidents per year (max 8,760)</p>
+                </div>
+            </div>
+
+            <!-- Bot Volume Ratio -->
+            <div class="text-input-group">
+                <label class="input-label">Estimated Bot Volume Ratio</label>
+                <input type="text" class="text-input" value="90%" id="sec-bot-volume">
+            </div>
+
+            <!-- Bot Mitigation Effectiveness -->
+            <div class="text-input-group">
+                <label class="input-label">Bot Mitigation Effectiveness</label>
+                <input type="text" class="text-input" value="90%" id="sec-bot-mitigation">
+            </div>
+
+            <!-- Downtime Risk Reduction -->
+            <div class="text-input-group">
+                <label class="input-label">Downtime risk reduction</label>
+                <input type="text" class="text-input" value="90%" id="sec-downtime-risk">
+            </div>
+        </div>
+
+        <div class="results-wrapper">
+            <!-- Metric cards -->
+            <div class="metrics-card-wrapper">
+                <div class="metric-card">
+                    <div class="metric-label">Bot traffic reduced</div>
+                    <div class="metric-value" id="sec-bot-traffic-value">81%</div>
+                    <p class="formula-note"><strong>Formula:</strong> Bot Volume Ratio × Bot Mitigation Effectiveness</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Origin load reduced</div>
+                    <div class="metric-value" id="sec-origin-load-value">81%</div>
+                    <p class="formula-note"><strong>Formula:</strong> Equal to Bot Traffic Reduced (fewer malicious requests)</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Downtime reduced</div>
+                    <div class="metric-value">
+                        <span id="sec-downtime-value">7.2</span><span class="metric-value-unit"> hrs/yr</span>
+                    </div>
+                    <p class="formula-note"><strong>Formula:</strong> Downtime Hours × Downtime Risk Reduction</p>
+                </div>
+            </div>
+
+            <!-- Downtime chart -->
+            <div class="origin-chart-wrapper">
+                <div class="chart-header">
+                    <h2 class="chart-title">Annual downtime comparison</h2>
+                    <p class="chart-subtitle" id="sec-chart-subtitle">100 TB bandwidth</p>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-area">
+                        <canvas id="downtime-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background:#0067d1; border-radius:2px;"></div>
+                        <span class="legend-label">Downtime per year</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.main-content-wrapper security -->
+
+    </div><!-- /.body-card -->
     <script src="main.js"></script>
 </body>
 </html>
