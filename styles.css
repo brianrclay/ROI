@@ -216,12 +216,7 @@ body {
   }
 }
 .body-card {
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
-  background: rgba(18, 20, 23, 0.7);
-  border-radius: 8px;
-  padding: 40px;
-  width: calc(100% - 64px);
+  width: calc(100% - 48px);
   max-width: 1200px;
   margin: 0 auto 80px;
   box-sizing: border-box;
@@ -291,7 +286,7 @@ body {
 }
 
 .inputs-wrapper {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid #1b1b1b;
   border-radius: 4px;
   padding: 24px;
@@ -540,7 +535,7 @@ body {
 
 .metric-card {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid #1b1b1b;
   border-radius: 4px;
   padding: 16px 24px;
@@ -614,7 +609,7 @@ body {
 }
 
 .origin-shielding-wrapper {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid #1b1b1b;
   border-radius: 4px;
   position: relative;
@@ -1052,7 +1047,7 @@ body {
 }
 
 .origin-chart-wrapper {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid #1b1b1b;
   border-radius: 4px;
   position: relative;
@@ -1156,7 +1151,7 @@ body {
 
 .stat-item {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -1227,6 +1222,11 @@ body {
   }
 }
 @media screen and (max-width: 953px) {
+  .body-card {
+    width: calc(100% - 32px);
+    padding: 0;
+    background-color: transparent;
+  }
   .main-content-wrapper {
     flex-direction: column;
   }
@@ -1239,8 +1239,7 @@ body {
     min-width: 243px;
   }
   .results-wrapper {
-    border-top: 1px solid #1b1b1b;
-    padding-top: 32px;
+    padding-top: 0;
   }
   .origin-shielding-content {
     padding: 40px 24px 80px;
@@ -1249,12 +1248,12 @@ body {
   .origin-shielding-content .toggle-container {
     top: 216px;
   }
+  .header-wrapper {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
 }
 @media screen and (max-width: 650px) {
-  .body-card {
-    width: calc(100% - 32px);
-    padding: 24px;
-  }
   .main-content-wrapper, .header-wrapper, .product-tabs-wrapper {
     width: 100%;
   }
@@ -1297,10 +1296,6 @@ body {
   }
   .metrics-card-wrapper .metric-card {
     min-width: 243px;
-  }
-  .header-wrapper {
-    gap: 24px;
-    flex-wrap: wrap;
   }
   .header-wrapper h1 {
     font-size: 32px;

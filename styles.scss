@@ -6,7 +6,7 @@ $color-text-primary: #ffffff;
 $color-text-secondary: #dbdbdb;
 
 // Dark theme colors
-$color-bg-card: rgba(0, 0, 0, 0.3);
+$color-bg-card: rgba(0, 0, 0, 0.4);
 $color-accent-blue: #0067d1;
 $color-savings-green: #79cc05;
 $color-savings-green-bg: #222900;
@@ -218,11 +218,7 @@ body{
 
 // Glass card container
 .body-card {
-  backdrop-filter: blur(2px);
-  background: rgba(18, 20, 23, 0.70);
-  border-radius: 8px;
-  padding: 40px;
-  width: calc(100% - 64px);
+  width: calc(100% - 48px);
   max-width: 1200px;
   margin: 0 auto 80px;
   box-sizing: border-box;
@@ -1233,7 +1229,7 @@ body{
 
 .stat-item {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   padding: $spacing-5;
   display: flex;
   flex-direction: column;
@@ -1308,6 +1304,13 @@ body{
 }
 
 @media screen and (max-width: 953px) {
+
+  .body-card {
+    width: calc(100% - 32px);
+    padding: 0;
+    background-color: transparent;
+  }
+
   .main-content-wrapper {
    flex-direction: column;
   }
@@ -1323,8 +1326,7 @@ body{
   }
 
   .results-wrapper{
-    border-top: 1px solid $color-border-primary;
-    padding-top: 32px;
+    padding-top: 0;
   }
 
   .origin-shielding-content{
@@ -1335,13 +1337,14 @@ body{
       top: 216px;
     }
   }
+
+  .header-wrapper{
+    gap: 24px;
+    flex-wrap: wrap;
+  }
 }
 
 @media screen and (max-width: 650px) {
-  .body-card {
-    width: calc(100% - 32px);
-    padding: 24px;
-  }
 
   .main-content-wrapper, .header-wrapper, .product-tabs-wrapper {
     width: 100%;
@@ -1394,11 +1397,6 @@ body{
     .metric-card{
       min-width: 243px;
     }
-  }
-
-  .header-wrapper{
-    gap: 24px;
-    flex-wrap: wrap;
   }
 
   .header-wrapper h1{
