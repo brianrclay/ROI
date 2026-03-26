@@ -43,13 +43,13 @@
 
 // Color variables
 $color-surface-primary: transparent;
-$color-border-primary: #1b1b1b;
+$color-border-primary: #222222;
 $color-border-inactive: #677483;
 $color-text-primary: #ffffff;
 $color-text-secondary: #dbdbdb;
 
 // Dark theme colors
-$color-bg-card: rgba(0, 0, 0, 0.4);
+$color-bg-card: rgba(0, 0, 0, 0.55);
 $color-accent-blue: #0067d1;
 $color-savings-green: #79cc05;
 $color-savings-green-bg: #222900;
@@ -284,7 +284,7 @@ body{
     padding: 1px;
     background: radial-gradient(
       200px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
-      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0.55),
       transparent 65%
     );
     -webkit-mask:
@@ -472,7 +472,7 @@ body{
   background-color: #1a1d21;
   border: 1px solid $color-border-primary;
   border-radius: $border-radius-md;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
   list-style: none;
   padding: 4px 0;
   margin: 4px 0 0 0;
@@ -1272,7 +1272,7 @@ body{
 
 .stat-item {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.55);
   padding: $spacing-5;
   display: flex;
   flex-direction: column;

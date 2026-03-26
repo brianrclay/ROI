@@ -274,7 +274,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: radial-gradient(200px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(255, 255, 255, 0.45), transparent 65%);
+  background: radial-gradient(200px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(255, 255, 255, 0.55), transparent 65%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
@@ -322,8 +322,8 @@ body {
 }
 
 .inputs-wrapper {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid #1b1b1b;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid #222222;
   border-radius: 4px;
   padding: 24px;
   display: flex;
@@ -442,9 +442,9 @@ body {
   right: 0;
   margin-top: 4px;
   background-color: #1a1d21;
-  border: 1px solid #1b1b1b;
+  border: 1px solid #222222;
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
   list-style: none;
   padding: 4px 0;
   margin: 4px 0 0 0;
@@ -571,8 +571,8 @@ body {
 
 .metric-card {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid #1b1b1b;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid #222222;
   border-radius: 4px;
   padding: 16px 24px;
   display: flex;
@@ -645,8 +645,8 @@ body {
 }
 
 .origin-shielding-wrapper {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid #1b1b1b;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid #222222;
   border-radius: 4px;
   position: relative;
   width: 100%;
@@ -799,7 +799,7 @@ body {
 
 .fastly-logo-container {
   background: #000000;
-  border: 1px solid #1b1b1b;
+  border: 1px solid #222222;
   border-radius: 100px;
   padding: 8px;
   display: flex;
@@ -1083,8 +1083,8 @@ body {
 }
 
 .origin-chart-wrapper {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid #1b1b1b;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid #222222;
   border-radius: 4px;
   position: relative;
   width: 100%;
@@ -1180,14 +1180,14 @@ body {
 }
 
 .origin-chart-stats-wrapper {
-  border-top: 1px solid #1b1b1b;
+  border-top: 1px solid #222222;
   display: flex;
   width: 100%;
 }
 
 .stat-item {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.55);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -1197,7 +1197,7 @@ body {
   min-width: 0;
 }
 .stat-item:not(:first-child) {
-  border-left: 1px solid #1b1b1b;
+  border-left: 1px solid #222222;
 }
 
 .stat-value {
@@ -1304,7 +1304,7 @@ body {
   }
   .stat-item {
     min-width: 205px;
-    border-top: 1px solid #1b1b1b;
+    border-top: 1px solid #222222;
   }
   .stat-item:last-child {
     border-left: none;
